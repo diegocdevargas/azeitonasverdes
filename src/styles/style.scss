@@ -1,0 +1,184 @@
+@use 'breakpoints.scss' as *;
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+#root {
+  height: 100%;
+}
+
+.smooth-scroll-wrapper {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.smooth-scroll-content {
+  position: relative;
+  will-change: transform;
+}
+
+#hero {
+	video{
+		filter: blur(0.3rem) saturate(0.1) grayscale(0.1) brightness(0.9);
+	}
+	.bg-hero{
+		filter: blur(0.3rem) saturate(0.1) grayscale(0.1) brightness(0.9);
+	}
+}
+
+.dialog-video{
+  video{
+	filter: grayscale(0.1) hue-rotate(-89deg);
+  }
+}
+
+#logoAzeitonas{
+	overflow: visible;
+	display: flex;
+	filter: url("#old-goo") saturate(calc(1.6 + var(--logo-glow, 0) * 0.9)) brightness(calc(1.18 + var(--logo-glow, 0) * 0.8));
+	-webkit-filter: url("#old-goo") saturate(calc(1.6 + var(--logo-glow, 0) * 0.9)) brightness(calc(1.18 + var(--logo-glow, 0) * 0.8));
+	width: clamp(20rem, calc(23vw - 0.1rem), 36rem);
+	will-change: transform, filter;
+	circle{
+		fill: #75d21b;
+		stroke: white;
+		stroke-width: 3;
+		opacity: 0.01;
+		display: none;
+	}
+	path{
+		stroke-dashoffset: 0;
+		will-change: filter;
+		position: absolute;
+		display: flex;
+	}
+	.greens{
+		//filter: url("#old-goo");	
+	}
+	.nome{
+		
+	}
+	.azeitona{
+		path{
+			transition: all 0.7s ease-in-out;
+		}
+		&:hover{
+			path{
+				filter: drop-shadow(0 0 0.5rem #75d21b) invert(100%);
+			}
+
+		}
+	}
+	.slimer{
+		path{
+			transition: all 0.7s ease-in-out;
+		}
+		&:hover{
+			path{
+				filter: drop-shadow(0 0 0.5rem #75d21b) invert(100%);
+			}
+
+		}
+	}
+	
+}
+
+.logo-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(20rem, calc(23vw - 0.1rem), 36rem);
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 10% 15%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(117, 210, 27, 0.42) 0%,
+      rgba(117, 210, 27, 0.22) 24%,
+      rgba(117, 210, 27, 0.06) 48%,
+      transparent 72%
+    );
+    opacity: calc(0.12 + var(--logo-glow, 0) * 0.95);
+    transform: scale(calc(1 + var(--logo-pulse, 0.2) * 0.5));
+    filter: blur(18px);
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+  }
+}
+
+.play-btn{
+  color: #75d21b;
+}
+
+.dialog-header{
+	backdrop-filter: blur(2.5rem);
+}
+
+.wbz-container{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  .wbz-link{
+    svg{
+      width: clamp(3rem, calc(4vw + 1rem), 5rem);
+      opacity: 0.4;
+      transition: opacity 600ms ease-in-out;
+      path{
+        fill: #75d21b;
+      }
+    }
+    &:hover{
+      span{
+        color: white;
+        opacity: 1;
+      }
+      svg{
+        opacity: 1;
+        transition: opacity 600ms ease-in-out;
+        path{
+          fill: url(#SVGID_1_);
+        }
+      }
+    }
+  }
+}
+
+.cursor-glow {
+  position: fixed;
+  left: -80px;
+  top: -80px;
+
+  width: 360px;
+  height: 360px;
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,.8) 20%,
+    rgba(0,255,255,.5) 40%,
+    rgba(0,255,255,.15) 70%,
+    transparent 100%
+  );
+
+  filter: url(#cursorGlow);
+
+  mix-blend-mode: color-dodge;
+
+  z-index: 999999;
+
+  will-change: transform;
+}

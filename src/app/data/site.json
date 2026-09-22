@@ -1,0 +1,174 @@
+{
+  "tours": [
+    { "date": "15 SET 2026", "city": "Rondinha", "venue": "Encontro de bandas", "status": "available" },
+    { "date": "à definir", "city": "Ronda Alta", "venue": "Rock em alta", "status": "soldout" },
+    { "date": "à definir", "city": "Trindade do Sul", "venue": "Motoclube 2026", "status": "soldout" },
+    { "date": "01 AGO 2026", "city": "Três Palmeiras", "venue": "Aniversário 17 anos ACCLTP", "status": "finalizado" }
+  ],
+  "gallery": [
+    { "src": "../assets/imgs/1.png", "alt": "Encontro de carros antigos", "span": "row-span-2" },
+    { "src": "../assets/imgs/2.png", "alt": "Campeonato de times", "span": "" },
+    { "src": "../assets/imgs/3.png", "alt": "Encontro musical VozTV", "span": "row-span-2" },
+    { "src": "../assets/imgs/4.png", "alt": "World MotoClube", "span": "" },
+    { "src": "../assets/imgs/5.png", "alt": "World MotoClube", "span": "row-span-2" },
+    { "src": "../assets/imgs/7.jpeg", "alt": "Camisetas artesanais", "span": "" },
+    { "src": "../assets/imgs/accltp.jpeg", "alt": "Aniversário ACCLTP", "span": "row-span-2" }
+  ],
+  "aboutSlides": [
+    { "src": "../assets/imgs/banda/1.png", "alt": "Azeitonas Verdes live performance concert" },
+    { "src": "../assets/imgs/banda/2.png", "alt": "Encontro de carros antigos" },
+    { "src": "../assets/imgs/banda/3.png", "alt": "Campeonato de times" }
+  ]
+  ,
+  "albums": [
+    {
+      "id": "noite-sombria",
+      "title": "Noite Sombria",
+      "year": "2020",
+      "tracks": 1,
+      "label": "PORÃO DO INTERIOR REC.",
+      "cover": "photo-1558089594-3733127b6a0c",
+      "audioSrc": "/assets/sounds/azeitonas_verdes_noite_sombria_original.mp3",
+      "type": "audio"
+    },
+    {
+      "id": "em-contramao",
+      "title": "Em Contramão",
+      "year": "2020",
+      "tracks": 1,
+      "label": "PORÃO DO INTERIOR REC.",
+      "cover": "photo-1780515576401-fe766dd7d569",
+      "audioSrc": "/assets/sounds/contramao.mp3",
+      "type": "audio"
+    },
+    {
+      "id": "memorias-de-um-vagalume",
+      "title": "Memórias de um Vagalume",
+      "year": "2019",
+      "tracks": 1,
+      "label": "PORÃO DO INTERIOR REC.",
+      "cover": "photo-1594193880547-65f4ba1b00fa",
+      "audioSrc": "/assets/sounds/memorias.mp3",
+      "type": "audio"
+    },
+    {
+      "id": "aniversario-intro-noite",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "Abertura + Noite Sombria",
+      "cover": "/assets/imgs/original_first_frame.png",
+      "audioSrc": "/assets/sounds/azeitonas_verdes_noite_sombria_original.mp3",
+      "videoSrc": "/assets/videos/intro_noite.mp4",
+      "type": "video",
+      "hasVideo": true
+    },
+    {
+      "id": "aniversario-em-contramao",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "Em Contramão",
+      "cover": "/assets/imgs/contramao_first_frame.png",
+      "audioSrc": "/assets/imgs/contramao.mp3",
+      "videoSrc": "/assets/videos/emcontramao.mp4",
+      "type": "video",
+      "hasVideo": true
+    },
+    {
+      "id": "aniversario-faroeste",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "Faroeste dos Planetas",
+      "cover": "/assets/imgs/faroeste_first_frame.png",
+      "audioSrc": "/assets/imgs/faroeste.mp3",
+      "videoSrc": "/assets/videos/faroeste.mp4",
+      "type": "video",
+      "hasVideo": true
+    },
+    {
+      "id": "aniversario-peral",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "Peral da Abelha",
+      "cover": "/assets/imgs/peral_first_frame.jpg",
+      "audioSrc": "/assets/sounds/perealabelha.mp3",
+      "videoSrc": "/assets/videos/perealabelha.mp4",
+      "type": "video",
+      "hasVideo": true
+    },
+    {
+      "id": "aniversario-contramao-extendida",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "Noite Sombria (Extendida)",
+      "cover": "/assets/imgs/contramao_first_frame.png",
+      "audioSrc": "/assets/sounds/contramao_bonus.mp3",
+      "videoSrc": "/assets/videos/contramao_bonus.mp4",
+      "type": "video",
+      "hasVideo": true
+    },
+    {
+      "id": "aniversario-a-nuvem",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "A Nuvem",
+      "cover": "/assets/imgs/nuvem_first_frame.png",
+      "audioSrc": "/assets/imgs/nuvem.mp3",
+      "videoSrc": "/assets/videos/nuvem.mp4",
+      "type": "video",
+      "hasVideo": true
+    },
+    {
+      "id": "aniversario-gnomos",
+      "title": "Aniversário ACCLTP",
+      "year": "2026",
+      "tracks": 1,
+      "label": "Gnomos",
+      "cover": "/assets/imgs/gnomos_first_frame.png",
+      "audioSrc": "/assets/imgs/gnomos.mp3",
+      "videoSrc": "/assets/videos/gnomos.mp4",
+      "type": "video",
+      "hasVideo": true
+    }
+  ],
+  "bandMembers": [
+    {
+      "id": "diego",
+      "name": "Diego",
+      "role": "Voz / Baixo",
+      "bio": "O grave",
+      "photos": [
+        "/assets/imgs/banda/d_1.jpeg",
+        "/assets/imgs/banda/d_2.jpeg",
+        "/assets/imgs/banda/d_3.jpeg"
+      ]
+    },
+    {
+      "id": "silvio",
+      "name": "Silvio",
+      "role": "Voz / Guitarra",
+      "bio": "O agudo",
+      "photos": [
+        "/assets/imgs/banda/s_1.jpeg",
+        "/assets/imgs/banda/s_2.jpeg",
+        "/assets/imgs/banda/s_3.jpeg"
+      ]
+    },
+    {
+      "id": "vitor",
+      "name": "Vitor",
+      "role": "Bateria",
+      "bio": "A batida",
+      "photos": [
+        "/assets/imgs/banda/v_1.jpeg",
+        "/assets/imgs/banda/v_3.jpeg",
+        "/assets/imgs/banda/v_2.jpeg"
+      ]
+    }
+  ]
+}
