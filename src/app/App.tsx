@@ -372,7 +372,7 @@ export default function App() {
             preload="metadata"
             poster="/assets/imgs/first_frame.webp"
           >
-            <source src="/assets/videos/hero_11s_loop.mp4" type="video/mp4" />
+            <source src="https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/hero_11s_loop.mp4" type="video/mp4" />
           </video>
           {/* psychedelic color overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#FF2D5520] via-transparent to-background pointer-events-none" />

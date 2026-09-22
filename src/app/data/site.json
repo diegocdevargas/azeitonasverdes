@@ -59,7 +59,7 @@
       "label": "Abertura + Noite Sombria",
       "cover": "/assets/imgs/original_first_frame.png",
       "audioSrc": "/assets/sounds/azeitonas_verdes_noite_sombria_original.mp3",
-      "videoSrc": "/assets/videos/intro_noite.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/intro_noite.mp4",
       "type": "video",
       "hasVideo": true
     },
@@ -71,7 +71,7 @@
       "label": "Em Contramão",
       "cover": "/assets/imgs/contramao_first_frame.png",
       "audioSrc": "/assets/imgs/contramao.mp3",
-      "videoSrc": "/assets/videos/emcontramao.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/emcontramao.mp4",
       "type": "video",
       "hasVideo": true
     },
@@ -83,7 +83,7 @@
       "label": "Faroeste dos Planetas",
       "cover": "/assets/imgs/faroeste_first_frame.png",
       "audioSrc": "/assets/imgs/faroeste.mp3",
-      "videoSrc": "/assets/videos/faroeste.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/faroeste.mp4",
       "type": "video",
       "hasVideo": true
     },
@@ -95,7 +95,7 @@
       "label": "Peral da Abelha",
       "cover": "/assets/imgs/peral_first_frame.jpg",
       "audioSrc": "/assets/sounds/perealabelha.mp3",
-      "videoSrc": "/assets/videos/perealabelha.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/perealabelha.mp4",
       "type": "video",
       "hasVideo": true
     },
@@ -107,7 +107,7 @@
       "label": "Noite Sombria (Extendida)",
       "cover": "/assets/imgs/contramao_first_frame.png",
       "audioSrc": "/assets/sounds/contramao_bonus.mp3",
-      "videoSrc": "/assets/videos/contramao_bonus.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/contramao_bonus.mp4",
       "type": "video",
       "hasVideo": true
     },
@@ -119,7 +119,7 @@
       "label": "A Nuvem",
       "cover": "/assets/imgs/nuvem_first_frame.png",
       "audioSrc": "/assets/imgs/nuvem.mp3",
-      "videoSrc": "/assets/videos/nuvem.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/nuvem.mp4",
       "type": "video",
       "hasVideo": true
     },
@@ -131,7 +131,7 @@
       "label": "Gnomos",
       "cover": "/assets/imgs/gnomos_first_frame.png",
       "audioSrc": "/assets/imgs/gnomos.mp3",
-      "videoSrc": "/assets/videos/gnomos.mp4",
+      "videoSrc": "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/gnomos.mp4",
       "type": "video",
       "hasVideo": true
     }
