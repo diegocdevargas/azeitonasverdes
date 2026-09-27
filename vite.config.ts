@@ -41,7 +41,22 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-    
+
+  build: {
+    rollupOptions: {
+      output: {
+        // Split vendors into separate, long-cacheable chunks
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return;
+          if (/[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'react';
+          if (/[\\/](gsap|@gsap)[\\/]/.test(id)) return 'gsap';
+          if (/[\\/](@radix-ui|embla-carousel|embla-carousel-react)[\\/]/.test(id)) return 'ui';
+          return 'vendor';
+        },
+      },
+    },
+  },
+
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
 })

@@ -1,8 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
-const rootDir = path.resolve(new URL('..', import.meta.url).pathname);
+// fileURLToPath handles Windows drive letters (URL.pathname yields "/D:/...")
+const rootDir = fileURLToPath(new URL('..', import.meta.url));
 const imageRoots = [
   path.join(rootDir, 'src', 'assets', 'imgs'),
   path.join(rootDir, 'public', 'assets', 'imgs'),
