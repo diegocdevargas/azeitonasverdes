@@ -416,7 +416,12 @@ export default function App() {
               );
             })}
           </div>
-          <button onClick={() => setMenuOpen(o => !o)} className="md:hidden text-primary">
+          <button
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuOpen}
+            className="md:hidden text-primary"
+          >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -568,6 +573,7 @@ export default function App() {
                               <button
                                 type="button"
                                 onClick={() => openVideoModal(a)}
+                                aria-label={`Assistir ${a.title} – ${a.label}`}
                                 className="absolute inset-0 flex items-center justify-center md:opacity-0 opacity-100 group-hover:opacity-100 transition-opacity"
                               >
                                 <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/30">
@@ -649,6 +655,7 @@ export default function App() {
                           <button
                             type="button"
                             onClick={() => handlePlayAlbum(a)}
+                            aria-label={`${isCurrentPlaying ? "Pausar" : "Tocar"} ${a.title}`}
                             className="absolute inset-0 flex items-center justify-center md:opacity-0 opacity-100 group-hover:opacity-100 transition-opacity"
                           >
                             <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/30">
@@ -875,7 +882,7 @@ export default function App() {
               <div className="font-['Share_Tech_Mono'] text-xs text-muted-foreground tracking-widest text-center">
                 © 2026 Azeitonas Verdes · Todos os direitos reservados
               </div>
-              <div className="font-['Pathway_Gothic_One '] text-xs text-muted-foreground/50 tracking-wide">
+              <div className="font-['Pathway_Gothic_One '] text-xs text-muted-foreground/90 tracking-wide">
                 ROCK DO INTERIOR · PUNK · PSICODELIA
               </div>
             </div>
@@ -883,8 +890,8 @@ export default function App() {
               <div className="wbz-container">
                 <div className="container">
                   <div className="inner-container">
-                    <a className="wbz-link" href="https://webcraftz.com.br/" target="_blank" rel="noopener noreferrer">
-                      <WbzCopyright className="mr-2" />
+                    <a className="wbz-link" href="https://webcraftz.com.br/" target="_blank" rel="noopener noreferrer" aria-label="Site desenvolvido por WebCraftz (abre em nova aba)">
+                      <WbzCopyright className="mr-2" aria-hidden="true" />
                     </a>
                   </div>
                 </div>

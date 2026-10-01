@@ -160,11 +160,12 @@ export default function VectorLogo({
     <div className={className} style={width ? { width } : undefined}>
       <div className="wrapper flex flex-col items-center justify-center gap-4 full h-full">
         <div className="logo-stage">
-          <Logo width={500} />
+          <Logo width={500} role="img" aria-label="Azeitonas Verdes" />
         </div>
         <div className="flex flex-wrap gap-4">
           <button
             onClick={handlePlayPause}
+            aria-label={isPlaying ? "Pausar música" : "Tocar música"}
             className="play-btn font-['Anton'] text-sm tracking-widest uppercase px-8 py-3 inline-flex items-center gap-2 transition-colors"
           >
             {isPlaying ? <Pause size={36} /> : <Play size={36} />}
