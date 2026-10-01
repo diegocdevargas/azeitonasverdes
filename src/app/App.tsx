@@ -28,6 +28,15 @@ const HERO_VIDEO_SRC = "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/hero
 // React 18 doesn't know the camelCase prop yet; the lowercase attribute passes straight through
 const highPriority = { fetchpriority: "high" } as React.ImgHTMLAttributes<HTMLImageElement>;
 
+// Everything below the hero
+const offscreen = { loading: "lazy", decoding: "async" } as const;
+
+// Unsplash resizes on its CDN and serves AVIF/WebP via auto=format (originals are 1.5–6.5 MB)
+const unsplash = (id: string, width: number) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=70`;
+const unsplashSrcSet = (id: string) =>
+  [320, 480, 640, 800, 960].map((width) => `${unsplash(id, width)} ${width}w`).join(", ");
+
 type Album = {
   title: string;
   year: string;
@@ -262,6 +271,22 @@ export default function App() {
     };
   }, []);
 
+  // Lazy images in carousels only load once their slide is on screen, which can flash an
+  // empty slide on swipe (or on "prev" wrapping to the last one). Load a carousel's slides
+  // as soon as the carousel itself gets close to the viewport.
+  // (ScrollTrigger rather than IntersectionObserver: it tracks ScrollSmoother's moved content)
+  useEffect(() => {
+    const triggers = gsap.utils.toArray<HTMLElement>("[data-slot='carousel']").map((carousel) =>
+      ScrollTrigger.create({
+        trigger: carousel,
+        start: "top bottom+=600",
+        once: true,
+        onEnter: () => carousel.querySelectorAll("img").forEach((img) => (img.loading = "eager")),
+      }),
+    );
+    return () => triggers.forEach((trigger) => trigger.kill());
+  }, []);
+
   useEffect(() => {
     const timer = window.setInterval(() => {
       setAboutIndex((current) => (current + 1) % aboutSlides.length);
@@ -430,6 +455,9 @@ export default function App() {
                       key={`${image.src}-${index}`}
                       src={image.src}
                       alt={image.alt}
+                      width={600}
+                      height={900}
+                      {...offscreen}
                       className={`absolute inset-0 h-full w-full object-cover grayscale contrast-125 transition-opacity duration-700 ease-out ${
                         index === aboutIndex ? "opacity-100" : "opacity-0"
                       }`}
@@ -490,6 +518,9 @@ export default function App() {
                               <img
                                 src={`${a.cover}`}
                                 alt={`${a.title} video cover`}
+                                width={640}
+                                height={480}
+                                {...offscreen}
                                 className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
                               />
 
@@ -583,8 +614,13 @@ export default function App() {
                       <div className="group relative border border-border hover:border-primary transition-colors duration-300 h-full">
                         <div className="relative overflow-hidden aspect-[4/3] bg-muted">
                           <img
-                            src={`https://images.unsplash.com/${a.cover}`}
+                            src={unsplash(a.cover, 640)}
+                            srcSet={unsplashSrcSet(a.cover)}
+                            sizes="(min-width: 1280px) 400px, (min-width: 768px) 33vw, calc(100vw - 48px)"
                             alt={`${a.title} album cover`}
+                            width={640}
+                            height={480}
+                            {...offscreen}
                             className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
                           />
 
@@ -686,6 +722,9 @@ export default function App() {
                       <img
                         src={img.src}
                         alt={img.alt}
+                        width={600}
+                        height={800}
+                        {...offscreen}
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                       />
                       <div className="absolute inset-0 bg-background/40 group-hover:bg-transparent transition-colors duration-300" />
@@ -722,6 +761,9 @@ export default function App() {
                                   <img
                                     src={photo}
                                     alt={`${m.name} ${photoIndex + 1}`}
+                                    width={600}
+                                    height={800}
+                                    {...offscreen}
                                     className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
                                   />
                                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
