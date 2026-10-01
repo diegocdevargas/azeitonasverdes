@@ -7,18 +7,30 @@
       <title>Azeitonas Verdes</title>
       <meta name="description" content="Azeitonas Verdes, uma banda de punk rock psicodélico." />
       <meta name="robots" content="index, follow" />
-      <link rel="icon" type="image/png" href="/src/assets/imgs/azeitona.png" />
+      <link rel="icon" type="image/png" href="/favicon-64.png" />
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Alata&family=Alumni+Sans:ital,wght@0,100..900;1,100..900&family=Anton&family=Pathway+Gothic+One&display=swap" rel="stylesheet">
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+      <style>html, body { height: 100%; margin: 0; background: #080808; } #root { height: 100%; }</style>
     </head>
 
     <body>
-      
-      <div id="root"></div>
+
+      <!-- Static copy of the hero background (same markup/classes as #hero in App.tsx)
+           so the first paint doesn't wait for the JS bundle. React replaces it on mount. -->
+      <div id="root">
+        <div class="smooth-scroll-wrapper">
+          <div class="smooth-scroll-content">
+            <section id="hero" class="relative min-h-screen flex flex-col justify-end overflow-hidden bg-background" aria-hidden="true">
+              <img data-responsive="src/assets/imgs/first_frame.jpg" sizes="100vw" fetchpriority="high" alt="" class="bg-hero absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 opacity-40" />
+              <div class="absolute inset-0 bg-gradient-to-b from-[#FF2D5520] via-transparent to-background pointer-events-none"></div>
+              <div class="absolute inset-0 bg-gradient-to-tr from-background via-transparent to-[#75d21b15] pointer-events-none"></div>
+            </section>
+          </div>
+        </div>
+      </div>
       <script type="module" src="/src/main.tsx"></script>
-      
+
     </body>
   </html>
-  
+

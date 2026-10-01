@@ -7,6 +7,17 @@ declare module "*.svg?react" {
   export default ReactComponent;
 }
 
+// Build-time responsive WebP variants (plugins/vite-plugin-responsive.ts)
+declare module '*?responsive' {
+  const img: { src: string; srcset: string; width: number; height: number };
+  export default img;
+}
+
+declare module '*?responsive&w=64;128' {
+  const img: { src: string; srcset: string; width: number; height: number };
+  export default img;
+}
+
 declare module '*.mp3' {
   const src: string;
   export default src;

@@ -6,8 +6,8 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Menu, X, Instagram, Youtube, Music2, Mail, MapPin, Calendar, Play, Pause, ChevronDown } from "lucide-react";
 import GooFilters from "./components/GooFilters";
 import VectorLogo from "./components/VectorLogo";
-import logoUrl from "../assets/imgs/azeitona.png";
-import heroFrameUrl from "../assets/imgs/first_frame.jpg";
+import logoImg from "../assets/imgs/azeitona.png?responsive&w=64;128";
+import heroImg from "../assets/imgs/first_frame.jpg?responsive";
 import WbzCopyright from "../assets/svg/wbz_copyright.svg?react";
 
 import {
@@ -22,6 +22,11 @@ import siteData from "./data/site.json";
 // import AudioMatrixFromFile from "./components/MusicFilter";
 
 const navLinks = ["Sobre", "Vídeos","Música", "Onde", "Galeria", "Banda", "Contato"];
+
+const HERO_VIDEO_SRC = "https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/hero_11s_loop.mp4";
+
+// React 18 doesn't know the camelCase prop yet; the lowercase attribute passes straight through
+const highPriority = { fetchpriority: "high" } as React.ImgHTMLAttributes<HTMLImageElement>;
 
 type Album = {
   title: string;
@@ -92,6 +97,7 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const heroImageRef = useRef<HTMLImageElement | null>(null);
   const aboutImageRef = useRef<HTMLDivElement | null>(null);
   const aboutLineRef = useRef<HTMLDivElement | null>(null);
 
@@ -269,8 +275,13 @@ export default function App() {
     if (!video) return;
 
     if (isPlaying) {
-      void video.play();
-    } else {
+      // The ~11 MB loop is only fetched once someone presses play
+      if (!video.getAttribute("src")) {
+        video.poster = heroImageRef.current?.currentSrc ?? heroImg.src;
+        video.src = HERO_VIDEO_SRC;
+      }
+      void video.play().catch(() => {});
+    } else if (video.getAttribute("src")) {
       video.pause();
       video.currentTime = 0;
     }
@@ -304,7 +315,10 @@ export default function App() {
               <img
                 width={60}
                 height={60}
-                src={logoUrl}
+                src={logoImg.src}
+                srcSet={logoImg.srcset}
+                sizes="44px"
+                {...highPriority}
                 alt="Azeitona"
                 className={`transition-all duration-800 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "h-8 w-8 md:h-9 md:w-9" : "h-11 w-11 md:h-10 md:w-10"}`}
               />
@@ -360,7 +374,13 @@ export default function App() {
           {/* ── HERO ── */}
           <section id="hero" ref={heroRef} className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-background">
             <img
-              src={heroFrameUrl}
+              ref={heroImageRef}
+              src={heroImg.src}
+              srcSet={heroImg.srcset}
+              sizes="100vw"
+              width={heroImg.width}
+              height={heroImg.height}
+              {...highPriority}
               alt="Azeitonas Verdes performing on MotoClube"
               className={`bg-hero absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ${isPlaying ? "opacity-0" : "opacity-40"}`}
             />
@@ -370,11 +390,8 @@ export default function App() {
               loop
               muted
               playsInline
-              preload="metadata"
-              poster={heroFrameUrl}
-            >
-              <source src="https://pub-41e8c17ea6fc4734bd2a4e9f79e2da79.r2.dev/hero_11s_loop.mp4" type="video/mp4" />
-            </video>
+              preload="none"
+            />
             {/* psychedelic color overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#FF2D5520] via-transparent to-background pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-tr from-background via-transparent to-[#75d21b15] pointer-events-none" />

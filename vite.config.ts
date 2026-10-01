@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr';
 import webp from './plugins/vite-plugin-webp';
+import responsive from './plugins/vite-plugin-responsive';
 
 function figmaAssetResolver() {
   return {
@@ -35,6 +36,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     svgr(),
+    responsive(),
     webp()
   ],
   resolve: {
