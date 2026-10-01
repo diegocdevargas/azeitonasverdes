@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400;1,700&family=Share+Tech+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alata&family=Alumni+Sans:ital,wght@0,100..900;1,100..900&family=Anton&family=Pathway+Gothic+One&display=swap');
+/* Self-hosted (woff2, font-display: swap, split by unicode-range so only the Latin
+   files download). These are the only Google fonts the site uses; Unifraktur,
+   Barlow Condensed, Alata and Alumni Sans were loaded but never applied. */
+@import '@fontsource/anton';
+@import '@fontsource/pathway-gothic-one';
+@import '@fontsource/share-tech-mono';
 @font-face {
     font-family: 'cfNightmare';
     src: 

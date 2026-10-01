@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr';
 import webp from './plugins/vite-plugin-webp';
 import responsive from './plugins/vite-plugin-responsive';
+import inlineCss from './plugins/vite-plugin-inline-css';
 
 function figmaAssetResolver() {
   return {
@@ -37,7 +38,8 @@ export default defineConfig({
     tailwindcss(),
     svgr(),
     responsive(),
-    webp()
+    webp(),
+    inlineCss()
   ],
   resolve: {
     alias: {
