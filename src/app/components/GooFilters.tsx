@@ -28,7 +28,6 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
   const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
   const dataRef = useRef<Uint8Array<ArrayBuffer> | null>(null);
   const rafRef = useRef<number | null>(null);
-  const isReadyRef = useRef(false);
   const gainRef = useRef<GainNode | null>(null);
 
   const blurElRef = useRef<SVGFEGaussianBlurElement | null>(null);
@@ -60,7 +59,8 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
   };
 
   const startAnalysis = () => {
-    if (!analyserRef.current || !dataRef.current) return;
+    // play() can run twice for one press (both effects below call it); keep a single loop
+    if (rafRef.current || !analyserRef.current || !dataRef.current) return;
 
     const analyser = analyserRef.current;
     const data = dataRef.current;
@@ -124,21 +124,20 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (!isReadyRef.current) {
-      audio.addEventListener('canplaythrough', () => void play(), { once: true });
-      return;
-    }
-
     initAudio();
 
     const ctx = ctxRef.current;
     if (!ctx) return;
 
     try {
+      // The track isn't preloaded (preload="none"), so play() is what starts the download.
+      // Call it before any await so it still counts as part of the user's tap (iOS).
+      const playing = audio.play();
       if (ctx.state === 'suspended') await ctx.resume();
-      await audio.play();
+      await playing;
     } catch (err) {
-      console.error('GooFilters: playback failed →', err);
+      // A pause while the track is still loading rejects the pending play(); that's expected
+      if ((err as DOMException)?.name !== 'AbortError') console.error('GooFilters: playback failed →', err);
       return;
     }
 
@@ -182,7 +181,6 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
       audio.pause();
       audio.src = nextSrc;
       audio.load();
-      isReadyRef.current = false;
     }
 
     if (isPlaying && audio.src === nextSrc) {
@@ -202,10 +200,6 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
     }
 
     const audio = audioRef.current;
-    const onCanPlay = () => {
-      isReadyRef.current = true;
-    };
-
     const onError = () => {
       const reasons: Record<number, string> = {
         1: 'MEDIA_ERR_ABORTED',
@@ -224,12 +218,10 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
       onEnded();
     };
 
-    audio?.addEventListener('canplaythrough', onCanPlay);
     audio?.addEventListener('error', onError);
     audio?.addEventListener('ended', onEndedInternal);
 
     return () => {
-      audio?.removeEventListener('canplaythrough', onCanPlay);
       audio?.removeEventListener('error', onError);
       audio?.removeEventListener('ended', onEndedInternal);
 
@@ -245,7 +237,7 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
 
   return (
     <>
-      <audio ref={audioRef} src={audioSrc} preload="auto" className="hidden" />
+      <audio ref={audioRef} src={audioSrc} preload="none" className="hidden" />
 
       <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
         <defs>

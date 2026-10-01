@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect, lazy, Suspense } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -17,8 +17,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./components/ui/carousel";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./components/ui/dialog";
 import siteData from "./data/site.json";
+
+const VideoDialog = lazy(() => import("./components/VideoDialog"));
 // import AudioMatrixFromFile from "./components/MusicFilter";
 
 const navLinks = ["Sobre", "Vídeos","Música", "Onde", "Galeria", "Banda", "Contato"];
@@ -113,6 +114,8 @@ export default function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState<Album | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<Album | null>(null);
+  // Mount the (lazy) video dialog once the page is idle, so it's ready before the first click
+  const [dialogReady, setDialogReady] = useState(false);
   const [aboutIndex, setAboutIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const scrollContentRef = useRef<HTMLDivElement | null>(null);
@@ -274,6 +277,14 @@ export default function App() {
   // Lazy images in carousels only load once their slide is on screen, which can flash an
   // empty slide on swipe (or on "prev" wrapping to the last one). Load a carousel's slides
   // as soon as the carousel itself gets close to the viewport.
+  useEffect(() => {
+    const ready = () => setDialogReady(true);
+    const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(ready, { timeout: 3000 }) : setTimeout(ready, 1500));
+    if (document.readyState === "complete") idle();
+    else window.addEventListener("load", idle, { once: true });
+    return () => window.removeEventListener("load", idle);
+  }, []);
+
   // (ScrollTrigger rather than IntersectionObserver: it tracks ScrollSmoother's moved content)
   useEffect(() => {
     const triggers = gsap.utils.toArray<HTMLElement>("[data-slot='carousel']").map((carousel) =>
@@ -565,32 +576,11 @@ export default function App() {
             </div>
           </section>
 
-          <Dialog open={!!selectedVideo} onOpenChange={(open) => !open && setSelectedVideo(null)}>
-            <DialogContent className="max-w-[100%] xl:max-w-[45%] px- border-border bg-background p-0 overflow-hidden gap-0">
-              {selectedVideo && (
-                <>
-                  <DialogHeader className="dialog-header border-b border-border px-5 py-4 bg-transparent">
-                    <DialogTitle className="font-['Anton'] text-2xl uppercase tracking-wide text-foreground gap-0">{selectedVideo.title}</DialogTitle>
-                    <DialogDescription className="font-['Share_Tech_Mono'] text-[10px] tracking-[0.18em] uppercase text-muted-foreground">
-                      Ao vivo · {selectedVideo.year}
-                    </DialogDescription>
-                  </DialogHeader>
-
-                  <div className="bg-black dialog-video">
-                    <video
-                      key={selectedVideo.title}
-                      src={selectedVideo.videoSrc}
-                      controls
-                      autoPlay
-                      playsInline
-                      
-                      className="w-full h-auto max-h-[75vh] object-contain"
-                    />
-                  </div>
-                </>
-              )}
-            </DialogContent>
-          </Dialog>
+          {(dialogReady || selectedVideo) && (
+            <Suspense fallback={null}>
+              <VideoDialog video={selectedVideo} onClose={() => setSelectedVideo(null)} />
+            </Suspense>
+          )}
 
           {/* ── MÚSICA── */}
           <section id="música" className="py-32 bg-card border-t border-border">

@@ -54,7 +54,9 @@ export default defineConfig({
           if (!id.includes('node_modules')) return;
           if (/[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'react';
           if (/[\\/](gsap|@gsap)[\\/]/.test(id)) return 'gsap';
-          if (/[\\/](@radix-ui|embla-carousel|embla-carousel-react)[\\/]/.test(id)) return 'ui';
+          if (/[\\/](embla-carousel|embla-carousel-react)[\\/]/.test(id)) return 'ui';
+          // Dialog + scroll lock: let Rollup keep them with the lazy VideoDialog chunk
+          if (/[\\/](@radix-ui|react-remove-scroll|react-remove-scroll-bar|react-style-singleton|use-callback-ref|use-sidecar|aria-hidden|get-nonce|detect-node-es|tslib)[\\/]/.test(id)) return;
           return 'vendor';
         },
       },
