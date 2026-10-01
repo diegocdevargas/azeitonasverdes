@@ -53,7 +53,9 @@ export default function GooFilters({ isPlaying, onEnded, audioSrc = AUDIO_SRC }:
   };
 
   const setLogoEnergy = (energy: number) => {
-    const root = document.documentElement;
+    // Runs every frame while playing. Only .logo-stage (glow) and the logo inside it use these
+    // variables, so set them there: on <html> each write restyled the whole document.
+    const root = document.querySelector<HTMLElement>('.logo-stage') ?? document.documentElement;
     root.style.setProperty('--logo-glow', energy.toFixed(3));
     root.style.setProperty('--logo-pulse', (0.15 + energy * 0.8).toFixed(3));
   };

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -20,6 +20,9 @@ import {
 import siteData from "./data/site.json";
 
 const VideoDialog = lazy(() => import("./components/VideoDialog"));
+
+// Cheap to register; ScrollTrigger/ScrollSmoother are registered later (see the scroll setup)
+gsap.registerPlugin(ScrollToPlugin);
 // import AudioMatrixFromFile from "./components/MusicFilter";
 
 const navLinks = ["Sobre", "Vídeos","Música", "Onde", "Galeria", "Banda", "Contato"];
@@ -100,6 +103,37 @@ function Reveal({ children, variant = "fadeUp", delay = 0, amount = 0.2, ...prop
   );
 }
 
+// Own component so the 2.6s crossfade only re-renders these images, not the whole page
+function AboutSlides() {
+  const [aboutIndex, setAboutIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setAboutIndex((current) => (current + 1) % aboutSlides.length);
+    }, 2600);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <>
+      {aboutSlides.map((image, index) => (
+        <img
+          key={`${image.src}-${index}`}
+          src={image.src}
+          alt={image.alt}
+          width={600}
+          height={900}
+          {...offscreen}
+          className={`absolute inset-0 h-full w-full object-cover grayscale contrast-125 transition-opacity duration-700 ease-out ${
+            index === aboutIndex ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+    </>
+  );
+}
+
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -116,7 +150,6 @@ export default function App() {
   const [selectedVideo, setSelectedVideo] = useState<Album | null>(null);
   // Mount the (lazy) video dialog once the page is idle, so it's ready before the first click
   const [dialogReady, setDialogReady] = useState(false);
-  const [aboutIndex, setAboutIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const scrollContentRef = useRef<HTMLDivElement | null>(null);
   const smootherRef = useRef<ScrollSmoother | null>(null);
@@ -169,141 +202,145 @@ export default function App() {
     window.history.replaceState(null, "", `#${targetId}`);
   };
 
-  useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin);
-
-    if (!scrollContainerRef.current || !scrollContentRef.current) return;
-
-    smootherRef.current = ScrollSmoother.create({
-      wrapper: scrollContainerRef.current,
-      content: scrollContentRef.current,
-      smooth: 1.2,
-      effects: true,
-      normalizeScroll: true,
-      ignoreMobileResize: true,
-    });
-
-    const navScrollTrigger = ScrollTrigger.create({
-      trigger: heroRef.current,
-      start: "top top",
-      end: "bottom top",
-      onUpdate: (self) => {
-        setScrolled(self.scroll() > 24);
-      },
-    });
-
-    return () => {
-      navScrollTrigger.kill();
-      smootherRef.current?.kill();
-      smootherRef.current = null;
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const reveal = (el: HTMLElement, scrollTrigger?: ScrollTrigger.Vars) => {
+      const config = revealVariants[(el.dataset.reveal as RevealVariant) || "fadeUp"];
+      gsap.fromTo(el, config.from, {
+        ...config.to,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: Number(el.dataset.delay ?? 0),
+        scrollTrigger,
+      });
+    };
 
+    // Reveals in the nav and the full-height hero are on screen at load, past their trigger
+    // line ("top 85%"), so they just play once and don't need ScrollTrigger: start them now.
+    // (Decided by position in the DOM rather than measuring, so this doesn't force a layout.)
     const revealNodes = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+    const onScreen = (el: HTMLElement) => !!el.closest("nav, #hero");
+    revealNodes.filter(onScreen).forEach((el) => reveal(el));
+    const pending = revealNodes.filter((el) => !onScreen(el));
 
-    revealNodes.forEach((el) => {
-      const variant = (el.dataset.reveal as RevealVariant) || "fadeUp";
-      const config = revealVariants[variant];
-      const delay = Number(el.dataset.delay ?? 0);
+    // Registering ScrollTrigger forces a full layout of the page and every trigger measures
+    // it again, so doing this during the first render made one long blocking task. Run it
+    // once the browser is idle instead (at most ~0.6s; the page can't scroll before that).
+    let cancelled = false;
+    let teardown = () => {};
+    const whenIdle = (cb: () => void, timeout: number) =>
+      "requestIdleCallback" in window ? requestIdleCallback(cb, { timeout }) : setTimeout(cb, 50);
 
-      gsap.fromTo(
-        el,
-        config.from,
-        {
-          ...config.to,
-          duration: 0.8,
-          ease: "power3.out",
-          delay,
-          scrollTrigger: {
+    whenIdle(() => {
+      if (cancelled || !scrollContainerRef.current || !scrollContentRef.current) return;
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+      smootherRef.current = ScrollSmoother.create({
+        wrapper: scrollContainerRef.current,
+        content: scrollContentRef.current,
+        smooth: 1.2,
+        effects: true,
+        normalizeScroll: true,
+        ignoreMobileResize: true,
+      });
+
+      ScrollTrigger.create({
+        trigger: heroRef.current,
+        start: "top top",
+        end: "bottom top",
+        onUpdate: (self) => {
+          setScrolled(self.scroll() > 24);
+        },
+      });
+
+      const ctx = gsap.context(() => {
+        if (!aboutImageRef.current || !aboutLineRef.current) return;
+
+        gsap.fromTo(
+          aboutImageRef.current,
+          { scale: 1, y: 0 },
+          {
+            scale: 0.9,
+            y: 18,
+            ease: "none",
+            scrollTrigger: {
+              trigger: aboutImageRef.current,
+              start: "top 78%",
+              end: "bottom 22%",
+              scrub: 1.2,
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+
+        gsap.fromTo(
+          aboutLineRef.current,
+          { opacity: 0.5, scale: 0.9, y: 0 },
+          {
+            opacity: 1,
+            scale: 0.85,
+            y: 10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: aboutLineRef.current,
+              start: "top 78%",
+              end: "bottom 22%",
+              scrub: 1.2,
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }, aboutImageRef);
+
+      // Lazy images in carousels only load once their slide is on screen, which can flash an
+      // empty slide on swipe (or on "prev" wrapping to the last one). Load a carousel's slides
+      // as soon as the carousel itself gets close to the viewport.
+      // (ScrollTrigger rather than IntersectionObserver: it tracks ScrollSmoother's moved content)
+      gsap.utils.toArray<HTMLElement>("[data-slot='carousel']").forEach((carousel) =>
+        ScrollTrigger.create({
+          trigger: carousel,
+          start: "top bottom+=600",
+          once: true,
+          onEnter: () => carousel.querySelectorAll("img").forEach((img) => (img.loading = "eager")),
+        }),
+      );
+
+      // The remaining reveals are all off screen (hiding them a bit later is invisible); create
+      // their triggers in small batches so no single task measures layout ~40 times.
+      const setupNextBatch = () => {
+        if (cancelled) return;
+        pending.splice(0, 8).forEach((el) =>
+          reveal(el, {
             trigger: el,
             start: "top 85%",
             end: "bottom 20%",
             toggleActions: "play none none reverse",
             once: false,
-          },
-        }
-      );
-    });
+          }),
+        );
+        if (pending.length) whenIdle(setupNextBatch, 1000);
+      };
+      setupNextBatch();
 
-    if (!aboutImageRef.current || !aboutLineRef.current) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        aboutImageRef.current,
-        { scale: 1, y: 0 },
-        {
-          scale: 0.9,
-          y: 18,
-          ease: "none",
-          scrollTrigger: {
-            trigger: aboutImageRef.current,
-            start: "top 78%",
-            end: "bottom 22%",
-            scrub: 1.2,
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        aboutLineRef.current,
-        { opacity: 0.5, scale: 0.9, y: 0 },
-        {
-          opacity: 1,
-          scale: 0.85,
-          y: 10,
-          ease: "none",
-          scrollTrigger: {
-            trigger: aboutLineRef.current,
-            start: "top 78%",
-            end: "bottom 22%",
-            scrub: 1.2,
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }, aboutImageRef);
+      teardown = () => {
+        ctx.revert();
+        smootherRef.current?.kill();
+        smootherRef.current = null;
+      };
+    }, 600);
 
     return () => {
-      ctx.revert();
+      cancelled = true;
+      teardown();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
-  // Lazy images in carousels only load once their slide is on screen, which can flash an
-  // empty slide on swipe (or on "prev" wrapping to the last one). Load a carousel's slides
-  // as soon as the carousel itself gets close to the viewport.
   useEffect(() => {
     const ready = () => setDialogReady(true);
     const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(ready, { timeout: 3000 }) : setTimeout(ready, 1500));
     if (document.readyState === "complete") idle();
     else window.addEventListener("load", idle, { once: true });
     return () => window.removeEventListener("load", idle);
-  }, []);
-
-  // (ScrollTrigger rather than IntersectionObserver: it tracks ScrollSmoother's moved content)
-  useEffect(() => {
-    const triggers = gsap.utils.toArray<HTMLElement>("[data-slot='carousel']").map((carousel) =>
-      ScrollTrigger.create({
-        trigger: carousel,
-        start: "top bottom+=600",
-        once: true,
-        onEnter: () => carousel.querySelectorAll("img").forEach((img) => (img.loading = "eager")),
-      }),
-    );
-    return () => triggers.forEach((trigger) => trigger.kill());
-  }, []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setAboutIndex((current) => (current + 1) % aboutSlides.length);
-    }, 2600);
-
-    return () => window.clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -461,19 +498,7 @@ export default function App() {
                   className="relative overflow-hidden rounded-none aspect-[2/3] border border-secondary/30 bg-muted will-change-transform shadow-[0_0_0_rgba(0,0,0,0)] transition-[transform,box-shadow,border-color] duration-700 ease-out"
                   style={{ transformOrigin: "center center" }}
                 >
-                  {aboutSlides.map((image, index) => (
-                    <img
-                      key={`${image.src}-${index}`}
-                      src={image.src}
-                      alt={image.alt}
-                      width={600}
-                      height={900}
-                      {...offscreen}
-                      className={`absolute inset-0 h-full w-full object-cover grayscale contrast-125 transition-opacity duration-700 ease-out ${
-                        index === aboutIndex ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                  ))}
+                  <AboutSlides />
                 </div>
                 <div className="absolute inset-0 bg-transparent from-secondary/20 to-primary/10 mix-blend-multiply" />
                 <div className="absolute bottom-0 left-0 bg-secondary px-4 py-2">
