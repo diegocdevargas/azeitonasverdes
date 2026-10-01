@@ -1,3 +1,4 @@
 node_modules
 dist
 public/assets/videos/*.mp4
+.claude/settings.local.json
