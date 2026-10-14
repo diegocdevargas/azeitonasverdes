@@ -6,6 +6,8 @@ import Logo from "../../assets/svg/main_two.svg?react";
 import { Play, Pause } from "lucide-react";
 
 import { gsap } from "gsap";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
+import { A_TARGET_D } from "./letterA";
 // import { DrawSVGPlugin }       from "gsap/DrawSVGPlugin";
 // import { MotionPathPlugin }    from "gsap/MotionPathPlugin";
 // import { CustomEase }          from "gsap/CustomEase";
@@ -22,6 +24,7 @@ import { gsap } from "gsap";
 // import { TextPlugin }          from "gsap/TextPlugin";
 
 gsap.registerPlugin(
+  MorphSVGPlugin
   // DrawSVGPlugin, MotionPathPlugin, GSDevTools,
   // Physics2DPlugin, PhysicsPropsPlugin,
   // ScrollTrigger, ScrollSmoother, ScrollToPlugin,
@@ -55,7 +58,10 @@ export default function VectorLogo({
 
   const floatTweensRef = useRef<gsap.core.Tween[]>([]);
   const randomTweenRef = useRef<gsap.core.Tween | null>(null);
-  const hasFlickeredRef = useRef(false); // ← persists across rerenders, never resets
+  
+  //const hasFlickeredRef = useRef(false); // ← persists across rerenders, never resets
+  // const letterAOriginalD = useRef<string | null>(null); // original "a" shape, saved on first play
+  // const letterAMorphRef = useRef<gsap.core.Tween | null>(null);
 
   // ─── GSAP animations (unchanged) ─────────────────────────────────────────
   useGSAP(() => {
@@ -66,6 +72,37 @@ export default function VectorLogo({
     randomTweenRef.current = null;
 
     if (!isPlaying) return; // ← nothing starts until play is pressed
+
+    // ── Letter "a" morph loop: runs while the music plays ───────────────
+    // const letterAMorphTimeline = gsap.timeline({
+    //   repeat: -1,
+    //   yoyo: true,
+    // });
+    // const letterAPaths = gsap.utils.toArray<SVGPathElement>(
+    //   "#logoAzeitonas .first-a",
+    // );
+    // letterAMorphTimeline.to("#displacement", {
+    //   attr: { scale: 60 }, // Aumenta a intensidade da distorção
+    //   duration: 2,
+    //   ease: "power1.inOut"
+    // }, 0).to("feTurbulence", {
+    //   // Altera a frequência para fazer as ondas se moverem
+    //   attr: { baseFrequency: "0.02 0.10" }, 
+    //   duration: 2,
+    //   ease: "power1.inOut"
+    // }, 0);
+
+    // const letterAEl = document.querySelector<SVGPathElement>("#logoAzeitonas .azeitonas > path:nth-child(1)");
+    // if (letterAEl) {
+    //   if (letterAOriginalD.current === null) letterAOriginalD.current = letterAEl.getAttribute("d");
+    //   letterAMorphRef.current = gsap.to(letterAEl, {
+    //     morphSVG: A_TARGET_D,
+    //     duration: 1.2,
+    //     ease: "sine.inOut",
+    //     yoyo: true,
+    //     repeat: -1,
+    //   });
+    // }
 
     // ── Float animations (unchanged) ─────────────────────────────────────
     const floatTargets = [

@@ -1,0 +1,241 @@
+- generic [ref=f4e2]:
+  - navigation [ref=f4e3]:
+    - generic [ref=f4e4]:
+      - link [ref=f4e6] [cursor=pointer]:
+        - /url: /
+        - img "Azeitona" [ref=f4e7]
+      - generic [ref=f4e8]:
+        - link "Sobre" [ref=f4e10] [cursor=pointer]:
+          - /url: "#sobre"
+        - link "Vídeos" [ref=f4e12] [cursor=pointer]:
+          - /url: "#vídeos"
+        - link "Música" [ref=f4e14] [cursor=pointer]:
+          - /url: "#música"
+        - link "Onde" [ref=f4e16] [cursor=pointer]:
+          - /url: "#onde"
+        - link "Galeria" [ref=f4e18] [cursor=pointer]:
+          - /url: "#galeria"
+        - link "Banda" [ref=f4e20] [cursor=pointer]:
+          - /url: "#banda"
+        - link "Contato" [ref=f4e22] [cursor=pointer]:
+          - /url: "#contato"
+  - generic [ref=f4e24]:
+    - generic [ref=f4e25]:
+      - img "Azeitonas Verdes performing on MotoClube" [ref=f4e26]
+      - generic [ref=f4e31]:
+        - img "Azeitonas Verdes" [ref=f4e33]
+        - button "Tocar música" [ref=f4e122]
+    - generic [ref=f4e126]:
+      - generic [ref=f4e127]:
+        - generic [ref=f4e129]:
+          - img "Azeitonas Verdes live performance concert" [ref=f4e130]
+          - img "Encontro de carros antigos" [ref=f4e131]
+          - img "Campeonato de times" [ref=f4e132]
+        - generic [ref=f4e134]: DESDE 2023
+      - generic [ref=f4e135]:
+        - generic [ref=f4e136]: // una palavrita
+        - heading "Sobre Nós" [level=2] [ref=f4e137]: SobreNós
+        - generic [ref=f4e138]:
+          - paragraph [ref=f4e139]: Nascemos de forma aleatória, iniciando com algumas composições próprias.
+          - paragraph [ref=f4e140]: Aos poucos as músicas e o som foram tomando forma, dando o início a formação como power trio hoje.
+          - paragraph [ref=f4e141]: Nosso som é simples e objetivo, de forma crua e natural.
+    - generic [ref=f4e143]:
+      - generic [ref=f4e146]:
+        - generic [ref=f4e147]: // clipes + vídeos
+        - heading "Vídeos" [level=2] [ref=f4e148]
+      - region [ref=f4e150]:
+        - generic [ref=f4e152]:
+          - group [ref=f4e153]:
+            - generic [ref=f4e155]:
+              - generic [ref=f4e156]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e157]
+                - generic [ref=f4e159]: video
+                - button "Assistir Aniversário ACCLTP – Abertura + Noite Sombria" [ref=f4e160]
+              - generic [ref=f4e164]:
+                - generic [ref=f4e165]: Abertura + Noite Sombria · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e166]
+          - group [ref=f4e167]:
+            - generic [ref=f4e169]:
+              - generic [ref=f4e170]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e171]
+                - generic [ref=f4e173]: video
+                - button "Assistir Aniversário ACCLTP – Em Contramão" [ref=f4e174]
+              - generic [ref=f4e178]:
+                - generic [ref=f4e179]: Em Contramão · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e180]
+          - group [ref=f4e181]:
+            - generic [ref=f4e183]:
+              - generic [ref=f4e184]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e185]
+                - generic [ref=f4e187]: video
+                - button "Assistir Aniversário ACCLTP – Faroeste dos Planetas" [ref=f4e188]
+              - generic [ref=f4e192]:
+                - generic [ref=f4e193]: Faroeste dos Planetas · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e194]
+          - group [ref=f4e195]:
+            - generic [ref=f4e197]:
+              - generic [ref=f4e198]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e199]
+                - generic [ref=f4e201]: video
+                - button "Assistir Aniversário ACCLTP – Peral da Abelha" [ref=f4e202]
+              - generic [ref=f4e206]:
+                - generic [ref=f4e207]: Peral da Abelha · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e208]
+          - group [ref=f4e209]:
+            - generic [ref=f4e211]:
+              - generic [ref=f4e212]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e213]
+                - generic [ref=f4e215]: video
+                - button "Assistir Aniversário ACCLTP – Noite Sombria (Extendida)" [ref=f4e216]
+              - generic [ref=f4e220]:
+                - generic [ref=f4e221]: Noite Sombria (Extendida) · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e222]
+          - group [ref=f4e223]:
+            - generic [ref=f4e225]:
+              - generic [ref=f4e226]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e227]
+                - generic [ref=f4e229]: video
+                - button "Assistir Aniversário ACCLTP – A Nuvem" [ref=f4e230]
+              - generic [ref=f4e234]:
+                - generic [ref=f4e235]: A Nuvem · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e236]
+          - group [ref=f4e237]:
+            - generic [ref=f4e239]:
+              - generic [ref=f4e240]:
+                - img "Aniversário ACCLTP video cover" [ref=f4e241]
+                - generic [ref=f4e243]: video
+                - button "Assistir Aniversário ACCLTP – Gnomos" [ref=f4e244]
+              - generic [ref=f4e248]:
+                - generic [ref=f4e249]: Gnomos · 2026
+                - heading "Aniversário ACCLTP" [level=3] [ref=f4e250]
+        - button "Previous slide" [ref=f4e251]
+        - button "Next slide" [ref=f4e253]
+    - generic [ref=f4e256]:
+      - generic [ref=f4e259]:
+        - generic [ref=f4e260]: // discografia
+        - heading "Nossas Músicas" [level=2] [ref=f4e261]: NossasMúsicas
+      - generic [ref=f4e262]:
+        - generic [ref=f4e264]:
+          - generic [ref=f4e265]:
+            - img "Noite Sombria album cover" [ref=f4e266]
+            - generic [ref=f4e268]: audio
+            - button "Tocar Noite Sombria" [ref=f4e269]
+          - generic [ref=f4e273]:
+            - generic [ref=f4e274]: PORÃO DO INTERIOR REC. · 2020
+            - heading "Noite Sombria" [level=3] [ref=f4e275]
+        - generic [ref=f4e277]:
+          - generic [ref=f4e278]:
+            - img "Em Contramão album cover" [ref=f4e279]
+            - generic [ref=f4e281]: audio
+            - button "Tocar Em Contramão" [ref=f4e282]
+          - generic [ref=f4e286]:
+            - generic [ref=f4e287]: PORÃO DO INTERIOR REC. · 2020
+            - heading "Em Contramão" [level=3] [ref=f4e288]
+        - generic [ref=f4e290]:
+          - generic [ref=f4e291]:
+            - img "Memórias de um Vagalume album cover" [ref=f4e292]
+            - generic [ref=f4e294]: audio
+            - button "Tocar Memórias de um Vagalume" [ref=f4e295]
+          - generic [ref=f4e299]:
+            - generic [ref=f4e300]: PORÃO DO INTERIOR REC. · 2019
+            - heading "Memórias de um Vagalume" [level=3] [ref=f4e301]
+    - generic [ref=f4e303]:
+      - generic [ref=f4e304]:
+        - generic [ref=f4e305]: // datas ao vivo
+        - heading "Eventos 2026" [level=2] [ref=f4e306]: Eventos2026
+      - generic [ref=f4e307]:
+        - generic [ref=f4e309]:
+          - generic [ref=f4e310]: 14 NOV 2026
+          - generic [ref=f4e311]:
+            - generic [ref=f4e312]: Rondinha
+            - generic [ref=f4e313]: Encontro de bandas
+          - generic [ref=f4e317]: Disponível
+          - link "Ver mais" [ref=f4e319] [cursor=pointer]:
+            - /url: https://www.instagram.com/clubedorock25/
+        - generic [ref=f4e321]:
+          - generic [ref=f4e322]: à definir
+          - generic [ref=f4e323]:
+            - generic [ref=f4e324]: Ronda Alta
+            - generic [ref=f4e325]: Rock em alta
+          - generic [ref=f4e329]: À DEFINIR
+          - generic [ref=f4e330]: À definir
+        - generic [ref=f4e332]:
+          - generic [ref=f4e333]: 01 AGO 2026
+          - generic [ref=f4e334]:
+            - generic [ref=f4e335]: Três Palmeiras
+            - generic [ref=f4e336]: Aniversário 17 anos ACCLTP
+          - generic [ref=f4e340]: Finalizado
+          - generic [ref=f4e341]: Finalizado
+    - generic [ref=f4e343]:
+      - generic [ref=f4e344]:
+        - generic [ref=f4e345]: // ao vivo + bastidores
+        - heading "Galeria" [level=2] [ref=f4e346]
+      - generic [ref=f4e347]:
+        - img "Encontro de carros antigos" [ref=f4e350]
+        - img "Campeonato de times" [ref=f4e354]
+        - img "Encontro musical VozTV" [ref=f4e358]
+        - img "World MotoClube" [ref=f4e362]
+        - img "World MotoClube" [ref=f4e366]
+        - img "Camisetas artesanais" [ref=f4e370]
+        - img "Aniversário ACCLTP" [ref=f4e374]
+    - generic [ref=f4e377]:
+      - generic [ref=f4e378]:
+        - generic [ref=f4e379]: // os ingredientes
+        - heading "da Conserva" [level=2] [ref=f4e380]
+      - generic [ref=f4e381]:
+        - generic [ref=f4e383]:
+          - region [ref=f4e385]:
+            - generic [ref=f4e387]:
+              - group [ref=f4e388]:
+                - img "Diego 1" [ref=f4e390]
+              - group [ref=f4e392]:
+                - img "Diego 2" [ref=f4e394]
+              - group [ref=f4e396]:
+                - img "Diego 3" [ref=f4e398]
+            - button "Previous slide" [ref=f4e400]
+            - button "Next slide" [ref=f4e402]
+          - generic [ref=f4e404]:
+            - generic [ref=f4e405]: Voz / Baixo
+            - heading "Diego" [level=3] [ref=f4e406]
+            - paragraph [ref=f4e407]: O grave
+        - generic [ref=f4e409]:
+          - region [ref=f4e411]:
+            - generic [ref=f4e413]:
+              - group [ref=f4e414]:
+                - img "Silvio 1" [ref=f4e416]
+              - group [ref=f4e418]:
+                - img "Silvio 2" [ref=f4e420]
+              - group [ref=f4e422]:
+                - img "Silvio 3" [ref=f4e424]
+            - button "Previous slide" [ref=f4e426]
+            - button "Next slide" [ref=f4e428]
+          - generic [ref=f4e430]:
+            - generic [ref=f4e431]: Voz / Guitarra
+            - heading "Silvio" [level=3] [ref=f4e432]
+            - paragraph [ref=f4e433]: O agudo
+        - generic [ref=f4e435]:
+          - region [ref=f4e437]:
+            - generic [ref=f4e439]:
+              - group [ref=f4e440]:
+                - img "Vitor 1" [ref=f4e442]
+              - group [ref=f4e444]:
+                - img "Vitor 2" [ref=f4e446]
+              - group [ref=f4e448]:
+                - img "Vitor 3" [ref=f4e450]
+            - button "Previous slide" [ref=f4e452]
+            - button "Next slide" [ref=f4e454]
+          - generic [ref=f4e456]:
+            - generic [ref=f4e457]: Bateria
+            - heading "Vitor" [level=3] [ref=f4e458]
+            - paragraph [ref=f4e459]: A batida
+    - generic [ref=f4e464]:
+      - generic [ref=f4e465]: // contato
+      - heading "Fala gurizada" [level=2] [ref=f4e466]: Falagurizada
+      - link "Instagram" [ref=f4e469] [cursor=pointer]:
+        - /url: https://www.instagram.com/azeitonasverdes/
+    - contentinfo [ref=f4e473]:
+      - generic [ref=f4e474]:
+        - generic [ref=f4e475]: © 2026 Azeitonas Verdes · Todos os direitos reservados
+        - generic [ref=f4e476]: ROCK DO INTERIOR · PUNK · PSICODELIA
+      - link "Site desenvolvido por WebCraftz (abre em nova aba)" [ref=f4e481] [cursor=pointer]:
+        - /url: https://webcraftz.com.br/
