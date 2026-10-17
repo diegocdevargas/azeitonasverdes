@@ -1,8 +1,9 @@
 {
   "tours": [
-    { "date": "14 NOV 2026", "city": "Rondinha", "venue": "Encontro de bandas", "status": "available", "link": "https://www.instagram.com/clubedorock25/" },
-    { "date": "à definir", "city": "Ronda Alta", "venue": "Rock em alta", "status": "soldout", "link": "#" },
-    { "date": "01 AGO 2026", "city": "Três Palmeiras", "venue": "Aniversário 17 anos ACCLTP", "status": "finalizado", "link": "#" }
+    { "date": "14 NOV 2026", "city": "Rondinha/RS", "venue": "Clube do Rock Segunda Edição", "status": "available", "link": "https://www.instagram.com/clubedorock25/" },
+    { "date": "07 NOV 2026", "city": "Trindade do Sul/RS", "venue": "2º Moto Trindade", "status": "available", "link": "#" },
+    { "date": "à definir", "city": "Ronda Alta/RS", "venue": "Rock em alta", "status": "soldout", "link": "#" },
+    { "date": "01 AGO 2026", "city": "Três Palmeiras/RS", "venue": "Aniversário 17 anos ACCLTP", "status": "finalizado", "link": "#" }
   ],
   "gallery": [
     { "src": "../assets/imgs/1.webp", "alt": "Encontro de carros antigos", "span": "row-span-2" },

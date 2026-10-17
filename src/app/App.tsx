@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -100,6 +100,23 @@ function Reveal({ children, variant = "fadeUp", delay = 0, amount = 0.2, ...prop
     >
       {children}
     </div>
+  );
+}
+
+// Lazy images pop in over their empty frame; fade them in once decoded instead
+function FadeImg({ className = "", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {
+  const [loaded, setLoaded] = useState(false);
+  const ref = useCallback((el: HTMLImageElement | null) => {
+    if (el?.complete && el.naturalWidth) setLoaded(true);
+  }, []);
+
+  return (
+    <img
+      ref={ref}
+      onLoad={() => setLoaded(true)}
+      className={`${className} ${loaded ? "opacity-100" : "opacity-0"}`}
+      {...props}
+    />
   );
 }
 
@@ -460,19 +477,19 @@ export default function App() {
               height={heroImg.height}
               {...highPriority}
               alt="Azeitonas Verdes performing on MotoClube"
-              className={`bg-hero absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ${isPlaying ? "opacity-0" : "opacity-40"}`}
+              className={`bg-hero absolute inset-0 z-0 w-full h-full object-cover object-center transition-opacity duration-500 ${isPlaying ? "opacity-0" : "opacity-40"}`}
             />
             <video
               ref={heroVideoRef}
-              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ${isPlaying ? "opacity-30" : "opacity-0"}`}
+              className={`absolute inset-0 z-0 w-full h-full object-cover object-center transition-opacity duration-500 ${isPlaying ? "opacity-30" : "opacity-0"}`}
               loop
               muted
               playsInline
               preload="none"
             />
             {/* psychedelic color overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#FF2D5520] via-transparent to-background pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-background via-transparent to-[#75d21b15] pointer-events-none" />
+            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#FF2D5520] via-transparent to-background pointer-events-none" />
+            <div className="absolute inset-0 z-[1] bg-gradient-to-tr from-background via-transparent to-[#75d21b15] pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20 pt-0 flex flex-col h-screen w-screen flex items-center justify-center">
               <div className="mb-4">
@@ -708,7 +725,7 @@ export default function App() {
                       </div>
                       <div>
                         {t.status === "available" ? (
-                          <a href={t.link} target="_blank" rel="noopener noreferrer" className="font-[''] text-xs tracking-widest uppercase bg-primary text-primary-foreground px-5 py-2.5 hover:bg-primary/80 transition-colors whitespace-nowrap">
+                          <a href={t.link} target="_blank" rel="noopener noreferrer" className="font-['Anton'] text-xs tracking-widest uppercase bg-primary text-primary-foreground px-5 py-2.5 hover:bg-primary/80 transition-colors whitespace-nowrap">
                             Ver mais
                           </a>
                         ) : t.status === "finalizado" ? (
@@ -741,16 +758,16 @@ export default function App() {
                 {gallery.map((img, i) => (
                   <Reveal key={i} variant="scaleIn" delay={0.08 + i * 0.05} className={`overflow-hidden ${img.span}`}>
                     <div className="relative h-full overflow-hidden group bg-muted">
-                      <img
+                      <FadeImg
                         src={img.src}
                         alt={img.alt}
                         width={600}
                         height={800}
                         {...offscreen}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                        className="relative z-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
                       />
-                      <div className="absolute inset-0 bg-background/40 group-hover:bg-transparent transition-colors duration-300" />
-                      <div className="absolute inset-0 border border-transparent group-hover:border-primary/60 transition-colors duration-300 pointer-events-none" />
+                      <div className="absolute inset-0 z-10 bg-background/40 group-hover:bg-transparent transition-colors duration-300" />
+                      <div className="absolute inset-0 z-10 border border-transparent group-hover:border-primary/60 transition-colors duration-300 pointer-events-none" />
                     </div>
                   </Reveal>
                 ))}
@@ -780,15 +797,15 @@ export default function App() {
                             {m.photos.map((photo, photoIndex) => (
                               <CarouselItem key={`${m.name}-${photoIndex}`} className="basis-full">
                                 <div className="relative overflow-hidden aspect-[3/4] bg-muted">
-                                  <img
+                                  <FadeImg
                                     src={photo}
                                     alt={`${m.name} ${photoIndex + 1}`}
                                     width={600}
                                     height={800}
                                     {...offscreen}
-                                    className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
+                                    className="relative z-0 w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
                                   />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/20 to-transparent" />
                                 </div>
                               </CarouselItem>
                             ))}
