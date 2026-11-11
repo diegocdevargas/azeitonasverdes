@@ -3,3 +3,4 @@ dist
 public/assets/videos/*.mp4
 .claude/settings.local.json
 .playwright-mcp
+.playwright
