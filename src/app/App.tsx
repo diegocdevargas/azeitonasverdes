@@ -529,7 +529,6 @@ export default function App() {
               </Reveal>
 
               <Reveal variant="fadeLeft" delay={0.12} className="w-full">
-                <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// una palavrita</span>
                 <h2 className="font-['Anton'] text-[clamp(3rem,7vw,5rem)] leading-none uppercase text-foreground mb-8">
                   Sobre<br /><span className="text-primary">Nós</span>
                 </h2>
@@ -554,7 +553,6 @@ export default function App() {
               <Reveal variant="fadeUp" delay={0.06} className="mb-16">
                 <div className="flex items-end justify-between flex-wrap gap-4">
                   <div>
-                    <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// clipes + vídeos</span>
                     <h2 className="font-['Anton'] text-[clamp(3rem,7vw,5rem)] leading-none uppercase text-foreground">
                       Vídeos
                     </h2>
@@ -617,8 +615,8 @@ export default function App() {
                     ))}
                   </CarouselContent>
 
-                  <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2 border border-border bg-background/80 text-foreground hover:bg-primary hover:text-primary-foreground md:-left-12" />
-                  <CarouselNext className="right-0 top-1/2 -translate-y-1/2 border border-border bg-background/80 text-foreground hover:bg-primary hover:text-primary-foreground md:-right-12" />
+                  <CarouselPrevious className="left-0 top-1/2 -translate-y-1/2 border border-border bg-background/80 text-foreground hover:bg-primary hover:text-primary-foreground min-[1400px]:-left-12" />
+                  <CarouselNext className="right-0 top-1/2 -translate-y-1/2 border border-border bg-background/80 text-foreground hover:bg-primary hover:text-primary-foreground min-[1400px]:-right-12" />
                 </Carousel>
               </div>
             </div>
@@ -636,7 +634,6 @@ export default function App() {
               <Reveal variant="fadeUp" delay={0.06} className="mb-16">
                 <div className="flex items-end justify-between flex-wrap gap-4">
                   <div>
-                    <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// discografia</span>
                     <h2 className="font-['Anton'] text-[clamp(3rem,7vw,5rem)] leading-none uppercase text-foreground">
                       Nossas<br /><span className="text-primary">Músicas</span>
                     </h2>
@@ -696,7 +693,6 @@ export default function App() {
           <section id="onde" className="py-32 bg-background border-t border-border">
             <div className="max-w-7xl mx-auto px-6">
               <Reveal variant="fadeUp" delay={0.06} className="mb-16">
-                <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// datas ao vivo</span>
                 <h2 className="font-['Anton'] text-[clamp(3rem,7vw,5rem)] leading-none uppercase text-foreground">
                   Eventos<br /><span className="text-primary">2026</span>
                 </h2>
@@ -749,7 +745,6 @@ export default function App() {
           <section id="galeria" className="py-32 bg-card border-t border-border">
             <div className="max-w-7xl mx-auto px-6">
               <Reveal variant="fadeUp" delay={0.06} className="mb-16">
-                <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// ao vivo + bastidores</span>
                 <h2 className="font-['Anton'] text-[clamp(3rem,7vw,5rem)] leading-none uppercase text-foreground">
                   Galeria
                 </h2>
@@ -839,7 +834,6 @@ export default function App() {
                 {/* Newsletter */}
                 {/* <Reveal variant="fadeLeft" delay={0.08}>
                   <div>
-                    <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// fique por dentro</span>
                     <h2 className="font-['Anton'] text-[clamp(2.5rem,6vw,4rem)] leading-none uppercase text-foreground mb-6">
                       Dê um<br /><span className="text-primary">Alô</span>
                     </h2>
@@ -849,7 +843,6 @@ export default function App() {
                 {/* Contact info */}
                 <Reveal variant="fadeRight" delay={0.12}>
                   <div className="w-full flex flex-col items-center justify-center">
-                    <span className="font-['Share_Tech_Mono'] text-xs text-primary tracking-[0.4em] uppercase mb-4 block">// contato</span>
                     <h2 className="font-['Anton'] text-[clamp(2.5rem,6vw,4rem)] leading-none uppercase text-foreground mb-6 text-center">
                       Fala<br /><span className="text-primary">gurizada</span>
                     </h2>
